@@ -1,6 +1,11 @@
 const { ipcMain } = require('electron');
-const { cloneGitRepository, getCollectionGitRepoUrl, listBranchesForRemoteUrl } = require('../utils/git');
+const {
+  cloneGitRepository,
+  getCollectionGitRepoUrl,
+  listBranchesForRemoteUrl
+} = require('../utils/git');
 const { createDirectory, removeDirectory } = require('../utils/filesystem');
+const { registerGitUiIpc } = require('./git-ui');
 
 const getCollectionGitRemoteUrl = async (collectionPath) => {
   try {
@@ -45,6 +50,8 @@ const registerGitIpc = (mainWindow) => {
   );
 
   ipcMain.handle('renderer:list-remote-branches-for-url', handleListRemoteBranches);
+
+  registerGitUiIpc(mainWindow);
 };
 
 module.exports = registerGitIpc;

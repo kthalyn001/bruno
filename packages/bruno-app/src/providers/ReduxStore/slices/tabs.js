@@ -101,6 +101,7 @@ export const tabsSlice = createSlice({
         'openapi-spec',
         'changelog',
         'mock-server',
+        'git',
         API_SPEC_TAB_TYPE
       ];
 

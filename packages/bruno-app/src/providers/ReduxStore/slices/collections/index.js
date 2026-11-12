@@ -282,6 +282,32 @@ export const collectionsSlice = createSlice({
       // for example, when a env is created, we want to auto select it the env modal
       collection.importedAt = new Date().getTime();
       collection.lastAction = null;
+      collection.git = collection.git || {
+        isGitRepo: false,
+        gitRootPath: null,
+        gitRepoUrl: '',
+        branches: [],
+        currentGitBranch: null,
+        defaultGitBranch: 'main',
+        logs: [],
+        changedFiles: {
+          staged: [],
+          unstaged: [],
+          conflicted: [],
+          totalFiles: 0,
+          tooManyFiles: false
+        },
+        aheadBehind: {
+          ahead: 0,
+          behind: 0,
+          aheadCommits: [],
+          behindCommits: []
+        },
+        remotes: [],
+        stashes: [],
+        isMerging: false,
+        mergeMessage: ''
+      };
 
       collapseAllItemsInCollection(collection);
       if (!collectionUids.includes(collection.uid)) {
@@ -307,6 +333,16 @@ export const collectionsSlice = createSlice({
       const collection = findCollectionByUid(state.collections, action.payload.collectionUid);
       if (collection) {
         collection.isLoading = action.payload.isLoading;
+      }
+    },
+    updateCollectionGitData: (state, action) => {
+      const { collectionUid, gitData } = action.payload;
+      const collection = findCollectionByUid(state.collections, collectionUid);
+      if (collection) {
+        collection.git = {
+          ...(collection.git || {}),
+          ...gitData
+        };
       }
     },
     setCollectionSecurityConfig: (state, action) => {
@@ -4543,7 +4579,8 @@ export const {
   addTransientDirectory,
   addSaveTransientRequestModal,
   removeSaveTransientRequestModal,
-  clearAllSaveTransientRequestModals
+  clearAllSaveTransientRequestModals,
+  updateCollectionGitData
 } = collectionsSlice.actions;
 
 export default collectionsSlice.reducer;

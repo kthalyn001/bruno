@@ -44,6 +44,7 @@ import GlobalEnvironmentSettings from 'components/Environments/GlobalEnvironment
 import OpenAPISyncTab from 'components/OpenAPISyncTab';
 import OpenAPISpecTab from 'components/OpenAPISpecTab';
 import ApiSpecTab from 'components/ApiSpecTab';
+import GitTab from 'components/Git/GitTab';
 import MockServerDashboard from 'components/MockServer/MockServerDashboard';
 import MockResponse from 'components/MockServer/MockResponse';
 import ChangelogTab from 'components/ChangelogTab';
@@ -575,6 +576,10 @@ const RequestTabPanel = () => {
 
   if (focusedTab.type === 'api-spec') {
     return <ApiSpecTab tabUid={focusedTab.uid} />;
+  }
+
+  if (focusedTab.type === 'git') {
+    return <GitTab collection={collection} />;
   }
 
   if (!item || !item.uid) {

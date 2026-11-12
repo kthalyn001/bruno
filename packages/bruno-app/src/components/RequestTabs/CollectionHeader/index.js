@@ -25,6 +25,7 @@ import OpenAPISyncIcon from 'components/Icons/OpenAPISync';
 import { switchWorkspace, renameWorkspaceAction, exportWorkspaceAction, confirmWorkspaceCreation, cancelWorkspaceCreation } from 'providers/ReduxStore/slices/workspaces/actions';
 import { updateWorkspace } from 'providers/ReduxStore/slices/workspaces';
 import { showInFolder } from 'providers/ReduxStore/slices/collections/actions';
+import CollectionGitButton from 'components/Git/CollectionGitButton';
 import { toggleCollectionFileMode } from 'providers/ReduxStore/slices/collections';
 import { toggleAiSidebar } from 'providers/ReduxStore/slices/chat';
 import { showMigrateToYmlModal } from 'providers/ReduxStore/slices/collection-migration';
@@ -792,6 +793,8 @@ const CollectionHeader = ({ collection, isScratchCollection }) => {
                   </ActionIcon>
                 </ToolHint>
               )}
+              {/* Git - always visible for collections */}
+              <CollectionGitButton collection={collection} />
               {/* Runner - always visible */}
               <ToolHint text="Runner" toolhintId="RunnerToolhintId" place="bottom">
                 <ActionIcon onClick={handleRun} aria-label="Runner" size="sm" data-testid="runner">

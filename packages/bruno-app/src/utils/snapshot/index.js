@@ -25,7 +25,8 @@ const SINGLETON_TAB_TYPES = new Set([
   'workspaceEnvironments',
   'openapi-sync',
   'openapi-spec',
-  'mock-server'
+  'mock-server',
+  'git'
 ]);
 
 const NON_REPLACEABLE_SINGLETON_TAB_TYPES = new Set([
@@ -33,7 +34,8 @@ const NON_REPLACEABLE_SINGLETON_TAB_TYPES = new Set([
   'variables',
   'openapi-sync',
   'openapi-spec',
-  'mock-server'
+  'mock-server',
+  'git'
 ]);
 
 const IGNORED_TAB_TYPES = new Set([
@@ -762,6 +764,8 @@ export const deserializeTab = (snapshotTab, collection) => {
       tab.uid = `${collection.uid}-environment-settings`;
     } else if (type === 'global-environment-settings') {
       tab.uid = `${collection.uid}-global-environment-settings`;
+    } else if (type === 'git') {
+      tab.uid = `${collection.uid}-git`;
     } else if (NON_REPLACEABLE_SINGLETON_TAB_TYPES.has(type)) {
       tab.uid = uuid();
     } else {
